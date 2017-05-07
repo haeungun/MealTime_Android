@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.haeunkim.mealtime.viewmodel.LoginViewModel"/>
+    </data>
+
+
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@drawable/dinner2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="30dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30sp"
+        android:orientation="vertical"
+        tools:context="com.example.haeunkim.mealtime.view.LoginActivity">
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/user"/>
+
+            <EditText
+                android:id="@+id/editEmail"
+                android:inputType="textEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:backgroundTint="@color/white"
+                android:paddingLeft="10dp"
+                android:hint="@string/email"
+                android:textColor="@color/white"
+                android:textColorHint="@color/grey" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/locked"/>
+            <EditText
+                android:id="@+id/editPwd"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:backgroundTint="@color/white"
+                android:paddingLeft="10dp"
+                android:hint="@string/password_example"
+                android:textColor="@color/white"
+                android:textColorHint="@color/grey"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="@string/btn_login"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_login"
+            android:onClick="@{viewModel::onClickLogin}"/>
+
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="@string/btn_sign_up"
+            android:textColor="@color/darkNavy"
+            android:background="@drawable/btn_signup"
+            android:onClick="@{viewModel::onClickSignUp}"/>
+
+
+    </LinearLayout>
+</layout>
