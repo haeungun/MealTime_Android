@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "330320135592",
+    "firebase_url": "https://mealtimeandroid.firebaseio.com",
+    "project_id": "mealtimeandroid",
+    "storage_bucket": "mealtimeandroid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330320135592:android:b9a1e522a72b9ed9",
+        "android_client_info": {
+          "package_name": "com.example.haeunkim.mealtime_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "330320135592-1dvccqhmsn3fbbnn3t7763iqgcehc48d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbmkvfrbo32Fqxvzo3oqUufshNHLc3O3g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330320135592:android:ccc21a607bc43e9c",
+        "android_client_info": {
+          "package_name": "com.example.haeunkim.mealtime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "330320135592-1dvccqhmsn3fbbnn3t7763iqgcehc48d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbmkvfrbo32Fqxvzo3oqUufshNHLc3O3g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,6 +5,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.example.haeunkim.mealtime.model.Util;
+import com.example.haeunkim.mealtime.view.SignUpActivity;
+
 public class LoginViewModel implements ViewModel {
     private Context context;
 
@@ -32,7 +35,11 @@ public class LoginViewModel implements ViewModel {
 
     }
 
-    public void onClickLogin(View v) {}
+    public void onClickLogin(View v) {
+       // Util.goActivity(context, MainActivity.class);
+    }
 
-    public void onClickSignUp(View v) {}
+    public void onClickSignUp(View v) {
+        Util.goActivity(context, SignUpActivity.class);
+    }
 }
