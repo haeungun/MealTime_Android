@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.example.haeunkim.mealtime.model.Util;
+import com.example.haeunkim.mealtime.view.MainActivity;
 import com.example.haeunkim.mealtime.view.SignUpActivity;
 
 public class LoginViewModel implements ViewModel {
@@ -36,7 +37,7 @@ public class LoginViewModel implements ViewModel {
     }
 
     public void onClickLogin(View v) {
-       // Util.goActivity(context, MainActivity.class);
+       Util.goActivity(context, MainActivity.class);
     }
 
     public void onClickSignUp(View v) {

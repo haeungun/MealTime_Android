@@ -32,9 +32,9 @@ public class SignUpActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sign_up);
-        Auth auth = new Auth();
+        this.initDataBinding();
 
+        Auth auth = new Auth();
         List<String> majorList = new ArrayList<>();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
