@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.haeunkim.mealtime.R;
+import com.example.haeunkim.mealtime.databinding.PopUpBinding;
 import com.example.haeunkim.mealtime.view.LoginActivity;
 import com.example.haeunkim.mealtime.view.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,6 +60,10 @@ public class Auth {
         reference.child("users").child(uid).setValue(user);
     }
 
+    public User getCurrentUserInfo() {
+        User user = new User(null, null);
+        return user;
+    }
     public FirebaseAuth getFirebaseAuth() {
         return firebaseAuth;
     }

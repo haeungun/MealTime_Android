@@ -1,7 +1,5 @@
 package com.example.haeunkim.mealtime.view;
 
-import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,7 +22,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import com.example.haeunkim.mealtime.R;
-import com.example.haeunkim.mealtime.databinding.PopUpBinding;
 import com.example.haeunkim.mealtime.model.Auth;
 import com.example.haeunkim.mealtime.model.Util;
 import com.example.haeunkim.mealtime.viewmodel.RecyclerAdapter;
@@ -41,6 +38,8 @@ public class MainActivity extends AppCompatActivity
     private View popupView;
     private PopupWindow popupWindow;
     private Spinner spinCategory;
+
+    private String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,8 +113,10 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_my_page) {
-            // Handle the camera action
+        if (id == R.id.nav_home) {
+            Util.showMessage(this, "Home");
+        } else if (id == R.id.nav_my_page) {
+
         } else if (id == R.id.nav_message) {
 
         } else if (id == R.id.nav_sign_out) {
@@ -138,7 +139,6 @@ public class MainActivity extends AppCompatActivity
         popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
 
         this.getCategory();
-
     }
 
     public void onClickClose(View v) {
@@ -152,7 +152,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void getCategory() {
-
         List<String> categoryList = new ArrayList<>();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, categoryList);
@@ -176,6 +175,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("SELECTED : " , parent.getItemAtPosition(position).toString());
+                category = parent.getItemAtPosition(position).toString();
                 // viewModel.setMajor(parent.getItemAtPosition(position).toString());
                 // ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE);
             }

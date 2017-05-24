@@ -36,6 +36,7 @@
 
     <string name="action_logout">Logout</string>
 
+    <string name="menu_home">Home</string>
     <string name="menu_my_page">My Page</string>
     <string name="menu_message">Message</string>
 
