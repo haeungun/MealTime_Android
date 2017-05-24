@@ -8,7 +8,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
+import com.example.haeunkim.mealtime.R;
 import com.example.haeunkim.mealtime.model.Auth;
+import com.example.haeunkim.mealtime.model.Util;
 
 public class SignUpViewModel implements ViewModel {
     private Context context;
@@ -48,7 +50,13 @@ public class SignUpViewModel implements ViewModel {
         String nickname = this.nickName.get();
         String email = this.email.get();
         String pwd = this.pwd.get();
-        auth.signUpUser(context, email, pwd, nickname, major);
+
+        if (nickname == null || email == null || pwd == null ||
+                nickname.length() < 1 || email.length() < 1 || pwd.length() < 1) {
+            Util.showMessage(context, context.getString(R.string.error_empty));
+        } else {
+            auth.signUpUser(context, email, pwd, nickname, major);
+        }
     }
 
     public void setMajor(String major) {

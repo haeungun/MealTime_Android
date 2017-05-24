@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+    <data>
+        <variable
+            name="view"
+            type="com.example.haeunkim.mealtime.view.PopUpActivity"/>
+    </data>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/transparent_50_black"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="80dp"
+        android:layout_marginTop="120dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:paddingTop="15dp"
+            android:paddingRight="15dp"
+            android:src="@drawable/ic_clear"
+            android:onClick="onClickClose"/>
+
+        <ImageView
+            android:id="@+id/img_rice"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="100dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/rice"/>
+
+        <LinearLayout
+            android:id="@+id/spin_box"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/img_rice"
+            android:background="@drawable/spinner_border_black">
+
+            <Spinner
+                android:id="@+id/spin_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dialog" />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="180dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/spin_box"
+            android:text="@string/submit"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_submit"
+            android:onClick="onClickSubmit"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
+</layout>

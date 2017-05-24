@@ -27,7 +27,7 @@ public class SignUpActivity extends Activity {
     private SignUpBinding binding;
     private SignUpViewModel viewModel;
 
-    Spinner spinner;
+    Spinner spinMajor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +54,10 @@ public class SignUpActivity extends Activity {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
-        spinner = binding.spin;
-        spinner.setAdapter(adapter);
+        spinMajor = binding.spin;
+        spinMajor.setAdapter(adapter);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinMajor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("SELECTED : " , parent.getItemAtPosition(position).toString());

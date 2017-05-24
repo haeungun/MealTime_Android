@@ -1,16 +1,13 @@
 package com.example.haeunkim.mealtime.model;
 
-
-import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.example.haeunkim.mealtime.R;
 import com.example.haeunkim.mealtime.view.LoginActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.example.haeunkim.mealtime.view.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -20,35 +17,40 @@ public class Auth {
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
     public void signUpUser(final Context context, final String email, String pwd, final String name, final String major) {
-        firebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener((Activity)context, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    saveUserInfo(name, major);
-                    // Util.showMessage(context, context.getString(R.string.succeess));
-                    Util.goActivity(context, LoginActivity.class);
-                } else {
-                    Util.showMessage(context, context.getString(R.string.error));
-                }
+        firebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener((v) -> {
+            if (v.isSuccessful()) {
+                saveUserInfo(name, major);
+                Util.showMessage(context, "Sign up success");
+                Util.goActivity(context, LoginActivity.class);
+            } else {
+                Util.showMessage(context, context.getString(R.string.error));
             }
         });
     }
 
     public void signInUser(final Context context, String email, String pwd) {
-        firebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener((Activity)context, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    // Util.goActivity(context, MainActivity.class);
-                } else {
-                    Util.showMessage(context, context.getString(R.string.error));
-                }
+        firebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener((v) -> {
+            if (v.isSuccessful()) {
+                Util.goActivity(context, MainActivity.class);
+            } else {
+                Util.showMessage(context, context.getString(R.string.error));
             }
         });
     }
 
     public void signOutUser() {
         firebaseAuth.signOut();
+    }
+
+    public boolean isAuthenticated() {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            Log.d("AUTHENTICATED", "onAuthStateChanged:signed_in:" + user.getUid());
+            return true;
+        } else {
+            Log.d("AUTHENTICATED", "onAuthStateChanged:signed_out");
+            return false;
+        }
     }
 
     public void saveUserInfo(String name, String major) {

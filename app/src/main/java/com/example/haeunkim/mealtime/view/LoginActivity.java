@@ -1,8 +1,12 @@
 package com.example.haeunkim.mealtime.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.haeunkim.mealtime.R;
 import com.example.haeunkim.mealtime.databinding.LoginBinding;
@@ -32,4 +36,5 @@ public class LoginActivity extends Activity {
         viewModel = new LoginViewModel(this);
         binding.setViewModel(viewModel);
     }
+
 }

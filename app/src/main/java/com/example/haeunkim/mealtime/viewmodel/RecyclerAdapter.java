@@ -63,9 +63,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.image.setBackground(drawable);
         holder.nickName.setText(item.getNickName());
         holder.major.setText(item.getMajor());
-        holder.cardView.setOnClickListener(view -> {
-            Util.showMessage(context, item.getNickName());
-        });
+        holder.cardView.setOnClickListener(view ->
+            Util.showMessage(context, item.getNickName())
+        );
     }
 
     @Override
