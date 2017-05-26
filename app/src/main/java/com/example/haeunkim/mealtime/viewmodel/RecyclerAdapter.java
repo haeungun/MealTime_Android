@@ -1,7 +1,6 @@
 package com.example.haeunkim.mealtime.viewmodel;
 
 
-import android.content.ClipData;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -41,8 +40,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         item[0] = new Item(R.drawable.dinner1, "내이름은", "인문대학 국어국문학과");
         item[1] = new Item(R.drawable.dinner1, "김헤헿", "사회과학대학 심리학과");
         item[2] = new Item(R.drawable.dinner1, "탐정이죠", "사회과학대학 심리학과");
-        item[3] = new Item(R.drawable.dinner1, "진실은", "사회과학대학 심리학과");
-        item[4] = new Item(R.drawable.dinner1, "언제나하나", "사회과학대학 심리학과");
+        item[3] = new Item(R.drawable.dinner1, "탐정이죠", "사회과학대학 심리학과");
+        item[4] = new Item(R.drawable.dinner1, "탐정이죠", "사회과학대학 심리학과");
         for (int i = 0; i < item.length; i++) {
             itemList.add(item[i]);
         }
@@ -63,7 +62,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.image.setBackground(drawable);
         holder.nickName.setText(item.getNickName());
         holder.major.setText(item.getMajor());
-        holder.cardView.setOnClickListener(view ->
+        holder.cardView.setOnClickListener((v) ->
             Util.showMessage(context, item.getNickName())
         );
     }

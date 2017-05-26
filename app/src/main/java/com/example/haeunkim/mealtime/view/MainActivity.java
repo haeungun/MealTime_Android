@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener((v) -> popup());
 
@@ -69,7 +68,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
     @Override
@@ -117,8 +115,8 @@ public class MainActivity extends AppCompatActivity
             Util.showMessage(this, "Home");
         } else if (id == R.id.nav_my_page) {
 
-        } else if (id == R.id.nav_message) {
-
+        } else if (id == R.id.nav_chat) {
+            Util.goActivity(this, ChatActivity.class);
         } else if (id == R.id.nav_sign_out) {
             Auth auth = new Auth();
             auth.signOutUser();

@@ -4,18 +4,25 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.haeunkim.mealtime.R;
-import com.example.haeunkim.mealtime.databinding.PopUpBinding;
 import com.example.haeunkim.mealtime.view.LoginActivity;
 import com.example.haeunkim.mealtime.view.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.StringJoiner;
 
 public class Auth {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+
+    private User currentUser;
 
     public void signUpUser(final Context context, final String email, String pwd, final String name, final String major) {
         firebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener((v) -> {
@@ -60,10 +67,26 @@ public class Auth {
         reference.child("users").child(uid).setValue(user);
     }
 
-    public User getCurrentUserInfo() {
-        User user = new User(null, null);
-        return user;
+    public String getCurrentUid() {
+        return firebaseAuth.getCurrentUser().getUid();
     }
+
+    public User getCurrentUserInfo() {
+        String uid = firebaseAuth.getCurrentUser().getUid();
+        reference.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                HashMap<String, String> user = (HashMap<String, String>) dataSnapshot.getValue();
+                String name = user.get("nickname");
+                String major = user.get("major");
+                currentUser = new User(name, major);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+        return this.currentUser;
+    }
+
     public FirebaseAuth getFirebaseAuth() {
         return firebaseAuth;
     }

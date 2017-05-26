@@ -32,7 +32,6 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
                 android:orientation="vertical">
-
                 <TextView
                     android:id="@+id/item_nickname"
                     android:layout_width="match_parent"
@@ -49,10 +48,8 @@
                     android:paddingLeft="10dp"
                     android:textSize="15sp"
                     android:textColor="@color/white"/>
-
             </LinearLayout>
+
         </LinearLayout>
-
     </android.support.v7.widget.CardView>
-
 </RelativeLayout>

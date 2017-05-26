@@ -14,6 +14,7 @@ import android.view.View;
 import com.example.haeunkim.mealtime.R;
 import com.example.haeunkim.mealtime.model.Auth;
 import com.example.haeunkim.mealtime.model.Util;
+import com.example.haeunkim.mealtime.view.MainActivity;
 import com.example.haeunkim.mealtime.view.SignUpActivity;
 
 public class LoginViewModel implements ViewModel {
@@ -80,8 +81,7 @@ public class LoginViewModel implements ViewModel {
         }
 
         @Override
-        public void afterTextChanged(Editable s) {
-        }
+        public void afterTextChanged(Editable s) {}
     };
 
     public TextWatcher pwdWatcher = new TextWatcher() {

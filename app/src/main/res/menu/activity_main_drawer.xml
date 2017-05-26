@@ -11,9 +11,9 @@
             android:icon="@drawable/ic_perm_identity"
             android:title="@string/menu_my_page" />
         <item
-            android:id="@+id/nav_message"
+            android:id="@+id/nav_chat"
             android:icon="@drawable/ic_chat"
-            android:title="@string/menu_message" />
+            android:title="@string/menu_chat" />
     </group>
 
     <item>
