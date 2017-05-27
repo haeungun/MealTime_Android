@@ -12,6 +12,9 @@ import com.example.haeunkim.mealtime.R;
 import com.example.haeunkim.mealtime.model.Auth;
 import com.example.haeunkim.mealtime.model.Util;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SignUpViewModel implements ViewModel {
     private Context context;
     private Auth auth;
@@ -51,13 +54,45 @@ public class SignUpViewModel implements ViewModel {
         String email = this.email.get();
         String pwd = this.pwd.get();
 
-        if (nickname == null || email == null || pwd == null ||
-                nickname.length() < 1 || email.length() < 1 || pwd.length() < 1) {
-            Util.showMessage(context, context.getString(R.string.error_empty));
-        } else {
+        if (isVerified(nickname, email, pwd)) {
             auth.signUpUser(context, email, pwd, nickname, major);
         }
     }
+
+    private boolean isVerified(String name, String email, String pwd) {
+        if (name == null || name.length() < 1 || email == null || email.length() < 1
+                || pwd == null || pwd.length() < 1) {
+            Util.showMessage(context, context.getString(R.string.error_empty));
+            return false;
+        }
+
+        Pattern namePattern = Pattern.compile("[a-zA-Z0-9]{1,7}");
+        Matcher nameMatcher = namePattern.matcher(name);
+
+        if (!nameMatcher.matches()) {
+            Util.showMessage(context, context.getString(R.string.error_nickname));
+            return false;
+        }
+
+        Pattern emailPattern = Pattern.compile("^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$");
+        Matcher emailMatcher = emailPattern.matcher(email);
+
+        if (!emailMatcher.matches()) {
+            Util.showMessage(context, context.getString(R.string.error_email));
+            return false;
+        }
+
+        Pattern pwdPattern = Pattern.compile(".{6,}");
+        Matcher pwdMatcher = pwdPattern.matcher(pwd);
+
+        if (!pwdMatcher.matches()) {
+            Util.showMessage(context, context.getString(R.string.error_password));
+            return false;
+        }
+
+        return true;
+    }
+
 
     public void setMajor(String major) {
         this.major = major;

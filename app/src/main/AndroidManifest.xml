@@ -26,7 +26,12 @@
             android:name=".view.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.ChatActivity"></activity>
+        <activity android:name=".view.ChatActivity" />
+
+        <receiver
+            android:name=".viewmodel.DateReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>

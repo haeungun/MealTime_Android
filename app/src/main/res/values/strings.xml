@@ -44,6 +44,9 @@
     <string name="success">SUCCESS</string>
     <string name="error">ERROR</string>
 
+    <string name="error_empty">Fill all the blanks</string>
+    <string name="error_nickname">Input your nickname with 1-7 characters for number or alphabet</string>
+    <string name="error_email">Input your correct E-mail address</string>
+    <string name="error_password">Password must contain at least 6 or more characters</string>
 
-    <string name="error_empty">Input Yout ID and password</string>
 </resources>

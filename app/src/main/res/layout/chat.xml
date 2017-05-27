@@ -13,11 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.example.haeunkim.mealtime.view.ChatActivity">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycle_chat"
+        <ScrollView
+            android:id="@+id/scroll_chat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
@@ -25,7 +24,14 @@
             android:layout_marginRight="15dp"
             android:layout_marginBottom="60dp">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle_chat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </ScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"

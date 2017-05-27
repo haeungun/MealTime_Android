@@ -56,6 +56,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         if (chat.getUid().equals(this.uid)) {
             Drawable drawable = context.getResources().getDrawable(R.drawable.chat_my_name);
             holder.name.setBackground(drawable);
+            holder.name.setTextColor(context.getColor(R.color.purple));
         }
     }
 

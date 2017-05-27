@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ScrollView;
 
 import com.example.haeunkim.mealtime.R;
 import com.example.haeunkim.mealtime.databinding.ChatBinding;
@@ -23,6 +25,7 @@ public class ChatActivity extends AppCompatActivity {
     private ChatViewModel viewModel;
 
     ChatAdapter chatAdapter;
+    ScrollView scroll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,10 @@ public class ChatActivity extends AppCompatActivity {
         recyclerChat.setHasFixedSize(false);
         recyclerChat.setLayoutManager(layoutManager);
         recyclerChat.setAdapter(chatAdapter);
+
+        scroll = binding.scrollChat;
+        scroll.post(() ->
+                scroll.scrollTo(0, scroll.getBottom()));
 
         viewModel.onCreate();
 
