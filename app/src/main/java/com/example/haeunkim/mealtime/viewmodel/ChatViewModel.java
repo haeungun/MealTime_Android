@@ -5,13 +5,11 @@ import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 
 import com.example.haeunkim.mealtime.model.Auth;
 import com.example.haeunkim.mealtime.model.Chat;
 import com.example.haeunkim.mealtime.model.Util;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -34,8 +32,6 @@ public class ChatViewModel implements ViewModel {
     @Override
     public void onCreate() {
         this.setUserName();
-
-
     }
 
     @Override
@@ -54,7 +50,7 @@ public class ChatViewModel implements ViewModel {
     }
 
     public void onClickSend(View v) {
-        if (content.get().length() < 1) {
+        if (content.get() == null || content.get().length() < 1) {
             Util.showMessage(context, "Input your message");
         } else {
             this.sendMessage();

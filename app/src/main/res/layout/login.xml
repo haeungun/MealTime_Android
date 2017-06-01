@@ -8,28 +8,32 @@
             type="com.example.haeunkim.mealtime.viewmodel.LoginViewModel"/>
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         xmlns:tools="http://schemas.android.com/tools"
         android:background="@drawable/dinner2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="30dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="30sp"
-        android:orientation="vertical"
         tools:context="com.example.haeunkim.mealtime.view.LoginActivity">
 
         <ImageView
+            android:id="@+id/logo"
             android:layout_width="300dp"
             android:layout_height="100dp"
-            android:layout_marginTop="100dp"
             android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_alignBottom="@+id/email_layout"
+            android:layout_marginBottom="60dp"
             android:src="@drawable/logo"/>
 
         <LinearLayout
+            android:id="@+id/email_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_centerInParent="true"
             android:orientation="horizontal">
 
             <ImageView
@@ -55,9 +59,13 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/pwd_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_below="@+id/email_layout"
             android:orientation="horizontal">
 
             <ImageView
@@ -82,11 +90,11 @@
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="35dp"
             android:layout_marginTop="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_below="@+id/pwd_layout"
+            android:layout_centerHorizontal="true"
             android:text="@string/btn_login"
             android:textColor="@color/white"
             android:background="@drawable/btn_login"
@@ -94,16 +102,24 @@
 
         <Button
             android:id="@+id/btnSignUp"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_below="@+id/btnLogin"
+            android:layout_centerHorizontal="true"
             android:text="@string/btn_sign_up"
             android:textColor="@color/darkNavy"
             android:background="@drawable/btn_signup"
             android:onClick="@{viewModel::onClickSignUp}"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/copyright"
+            android:textColor="@color/transparent_70"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

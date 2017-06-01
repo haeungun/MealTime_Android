@@ -3,15 +3,28 @@ package com.example.haeunkim.mealtime.model;
 
 public class Waiting {
 
+    private String uid;
     private String category;
     private String nickname;
     private String major;
 
-    public Waiting(String category, String nickname, String major) {
+    public Waiting() {}
+
+    public Waiting(String uid, String category, String nickname, String major) {
+        this.uid = uid;
         this.category = category;
         this.nickname = nickname;
         this.major = major;
     }
+
+    public String getUid() {
+        return this.uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
 
     public String getCategory() {
         return category;

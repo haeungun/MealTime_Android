@@ -22,7 +22,8 @@ public class Auth {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-    private User currentUser;
+    private String name;
+    private String major;
 
     public void signUpUser(final Context context, final String email, String pwd, final String name, final String major) {
         firebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener((v) -> {
@@ -71,20 +72,39 @@ public class Auth {
         return firebaseAuth.getCurrentUser().getUid();
     }
 
-    public User getCurrentUserInfo() {
+    public void getCurrentUserName() {
+        String uid = firebaseAuth.getCurrentUser().getUid();
+        Log.d("UID : ", uid);
+        reference.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                HashMap<String, String> user = (HashMap<String, String>) dataSnapshot.getValue();
+                name = user.get("nickname");
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
+    public void getCurrentUserMajor() {
         String uid = firebaseAuth.getCurrentUser().getUid();
         reference.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 HashMap<String, String> user = (HashMap<String, String>) dataSnapshot.getValue();
-                String name = user.get("nickname");
-                String major = user.get("major");
-                currentUser = new User(name, major);
+                major = user.get("major");
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-        return this.currentUser;
+    }
+
+    public User getCurrentUser() {
+        this.getCurrentUserName();
+        this.getCurrentUserMajor();
+        Log.d("CURRENT :", name + " " + major);
+        User user = new User(name, major);
+        return user;
     }
 
     public FirebaseAuth getFirebaseAuth() {

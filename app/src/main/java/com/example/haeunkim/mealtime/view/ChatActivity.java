@@ -51,7 +51,6 @@ public class ChatActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Chat chat = dataSnapshot.getValue(Chat.class);
                 chatAdapter.add(chat);
-                Log.d("CHAT", chat.toString());
             }
 
             @Override

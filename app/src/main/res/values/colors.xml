@@ -11,12 +11,15 @@
     <color name="black">#000000</color>
     <color name="darkGrey">#333333</color>
     <color name="grey">#666666</color>
+    <color name="midGrey">#AAAAAA</color>
+    <color name="lightGrey">#EEEEEE</color>
     <color name="white">#FFFFFF</color>
 
     <color name="transparent">#00000000</color>
     <color name="transparent_70">#B3FFFFFF</color>
     <color name="transparent_50">#80FFFFFF</color>
     <color name="transparent_30">#4DFFFFFF</color>
+    <color name="transparent_10">#1AFFFFFF</color>
     <color name="transparent_70_black">#B3000000</color>
     <color name="transparent_50_black">#80000000</color>
     <color name="transparent_30_black">#4D000000</color>

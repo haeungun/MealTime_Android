@@ -20,16 +20,21 @@ import android.widget.ArrayAdapter;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.haeunkim.mealtime.R;
 import com.example.haeunkim.mealtime.model.Auth;
+import com.example.haeunkim.mealtime.model.User;
 import com.example.haeunkim.mealtime.model.Util;
+import com.example.haeunkim.mealtime.model.Waiting;
 import com.example.haeunkim.mealtime.viewmodel.RecyclerAdapter;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -38,7 +43,14 @@ public class MainActivity extends AppCompatActivity
     private View popupView;
     private PopupWindow popupWindow;
     private Spinner spinCategory;
+    private TextView txtCount;
 
+    private RecyclerAdapter recyclerAdapter;
+    private Auth auth;
+
+    private String uid;
+    private String name;
+    private String major;
     private String category;
 
     @Override
@@ -47,12 +59,14 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.main);
         setTitle("");
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleview);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setHasFixedSize(false);
-        recyclerView.setLayoutManager(layoutManager);
+        txtCount = (TextView) findViewById(R.id.txt_count);
 
-        recyclerView.setAdapter(new RecyclerAdapter(this, R.layout.main));
+        RecyclerView recyclerWaiting = (RecyclerView) findViewById(R.id.recycle_waiting);
+        recyclerAdapter = new RecyclerAdapter(this, R.layout.main);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerWaiting.setHasFixedSize(true);
+        recyclerWaiting.setLayoutManager(layoutManager);
+        recyclerWaiting.setAdapter(recyclerAdapter);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,6 +82,61 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        auth = new Auth();
+
+        auth.getReference().child("waiting").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Waiting w = dataSnapshot.getValue(Waiting.class);
+                recyclerAdapter.add(w);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Waiting w = dataSnapshot.getValue(Waiting.class);
+                recyclerAdapter.change(w);
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Waiting w = dataSnapshot.getValue(Waiting.class);
+                recyclerAdapter.remove(w);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
+        auth.getReference().child("waiting").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int size = (int) dataSnapshot.getChildrenCount();
+                txtCount.setText(String.valueOf(size));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        uid = auth.getCurrentUid();
+        auth.getReference().child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                HashMap<String, String> user = (HashMap<String, String>) dataSnapshot.getValue();
+                name = user.get("nickname");
+                major = user.get("major");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
     }
 
     @Override
@@ -146,6 +215,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void onClickSubmit(View v) {
+        Waiting waiting = new Waiting(uid, category, name, major);
+        auth.getReference().child("waiting").child(uid).setValue(waiting);
+        this.onClickClose(v);
+    }
+
+    public void onClickCancel(View v) {
+        auth.getReference().child("waiting").child(uid).removeValue();
         this.onClickClose(v);
     }
 
@@ -167,6 +243,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+
         spinCategory = (Spinner) popupView.findViewById(R.id.spin_category);
         spinCategory.setAdapter(adapter);
         spinCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -174,8 +251,6 @@ public class MainActivity extends AppCompatActivity
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("SELECTED : " , parent.getItemAtPosition(position).toString());
                 category = parent.getItemAtPosition(position).toString();
-                // viewModel.setMajor(parent.getItemAtPosition(position).toString());
-                // ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE);
             }
 
             @Override

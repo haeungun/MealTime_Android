@@ -1,11 +1,15 @@
 package com.example.haeunkim.mealtime.model;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Chat {
 
     private String uid;
     private String name;
     private String message;
+    private String date;
 
     public Chat() {}
 
@@ -13,6 +17,9 @@ public class Chat {
         this.uid = uid;
         this.name = name;
         this.message = msg;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd HH:mm");
+        date = sdf.format(new Date());
     }
 
     public String getUid() {
@@ -37,5 +44,13 @@ public class Chat {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getDate() {
+        return this.date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

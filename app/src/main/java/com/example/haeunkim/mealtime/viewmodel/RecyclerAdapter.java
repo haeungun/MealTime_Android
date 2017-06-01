@@ -3,9 +3,11 @@ package com.example.haeunkim.mealtime.viewmodel;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.service.wallpaper.WallpaperService;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,94 +16,121 @@ import android.widget.TextView;
 
 import com.example.haeunkim.mealtime.R;
 import com.example.haeunkim.mealtime.model.Auth;
-import com.example.haeunkim.mealtime.model.Item;
 import com.example.haeunkim.mealtime.model.Util;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
+import com.example.haeunkim.mealtime.model.Waiting;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    private Context context;
-    private List<Item> itemList;
-    private int itemLayout;
+    Context context;
+    CopyOnWriteArrayList<Waiting> waitingList;
+    int waitingLayout;
 
-    private Auth auth;
+    Auth auth;
 
-    public RecyclerAdapter(Context context, int itemLayout) {
+    public RecyclerAdapter(Context context, int waitingLayout) {
         this.context = context;
-        this.itemList = new ArrayList<>();
+        this.waitingList = new CopyOnWriteArrayList<>();
         this.auth = new Auth();
+        this.waitingLayout = waitingLayout;
+    }
 
-        Item[] item = new Item[5];
-        item[0] = new Item(R.drawable.dinner1, "내이름은", "인문대학 국어국문학과");
-        item[1] = new Item(R.drawable.dinner1, "김헤헿", "사회과학대학 심리학과");
-        item[2] = new Item(R.drawable.dinner1, "탐정이죠", "사회과학대학 심리학과");
-        item[3] = new Item(R.drawable.dinner1, "탐정이죠", "사회과학대학 심리학과");
-        item[4] = new Item(R.drawable.dinner1, "탐정이죠", "사회과학대학 심리학과");
-        for (int i = 0; i < item.length; i++) {
-            itemList.add(item[i]);
+    public void add(Waiting w) {
+        waitingList.add(w);
+        notifyDataSetChanged();
+    }
+
+    public void remove(Waiting w) {
+        for (Waiting waiting : waitingList) {
+            if (waiting.getUid().equals(w.getUid())) {
+                waitingList.remove(waiting);
+            }
         }
-        this.itemLayout = itemLayout;
+
+        notifyDataSetChanged();
+    }
+
+    public void change(Waiting w) {
+        for (Waiting waiting : waitingList) {
+            if (waiting.getUid().equals(w.getUid())) {
+                waitingList.remove(waiting);
+                waitingList.add(w);
+            }
+        }
+
+        notifyDataSetChanged();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_cardview, null, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cardview, null);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Item item = itemList.get(position);
-        Drawable drawable = ContextCompat.getDrawable(context, item.getImgae());
+        final Waiting waiting = waitingList.get(position);
+        Drawable drawable = null;
+
+        switch (waiting.getCategory()) {
+            case "제1학생회관":
+                drawable = ContextCompat.getDrawable(context, R.drawable.cafeteria_1);
+                break;
+            case "제2학생회관":
+                drawable = ContextCompat.getDrawable(context, R.drawable.cafeteria_2);
+                break;
+            case "제3학생회관":
+                drawable = ContextCompat.getDrawable(context, R.drawable.cafeteria_3);
+                break;
+            case "양식":
+                drawable = ContextCompat.getDrawable(context, R.drawable.western);
+                break;
+            case "일식":
+                drawable = ContextCompat.getDrawable(context, R.drawable.japanese);
+                break;
+            case "한식":
+                drawable = ContextCompat.getDrawable(context, R.drawable.korean);
+                break;
+            case "중식":
+                drawable = ContextCompat.getDrawable(context, R.drawable.chinese);
+                break;
+            default:
+                drawable = ContextCompat.getDrawable(context, R.drawable.any);
+                break;
+       }
+
         holder.image.setBackground(drawable);
-        holder.nickName.setText(item.getNickName());
-        holder.major.setText(item.getMajor());
+        holder.nickName.setText(waiting.getNickname());
+        holder.major.setText(waiting.getMajor());
         holder.cardView.setOnClickListener((v) ->
-            Util.showMessage(context, item.getNickName())
+            Util.showMessage(context, waiting.getNickname())
         );
     }
 
     @Override
     public int getItemCount() {
-        return this.itemList.size();
+        return this.waitingList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         ImageView image;
         TextView nickName;
         TextView major;
         CardView cardView;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.item_image);
-            nickName = (TextView) itemView.findViewById(R.id.item_nickname);
-            major = (TextView) itemView.findViewById(R.id.item_major);
-            cardView = (CardView) itemView.findViewById(R.id.cardview);
+        public ViewHolder(View view) {
+            super(view);
+
+            image = (ImageView) view.findViewById(R.id.item_image);
+            nickName = (TextView) view.findViewById(R.id.item_nickname);
+            major = (TextView) view.findViewById(R.id.item_major);
+            cardView = (CardView) view.findViewById(R.id.cardview);
         }
-    }
-
-    private void setItems() {
-        auth.getReference().child("waiting").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Item> items = (ArrayList<Item>) dataSnapshot.getValue();
-                for (Item item : items) {
-                    itemList.add(item);
-                }
-                Util.showMessage(context, items.size() + " !");
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Util.showMessage(context, "ERROR");
-            }
-        });
     }
 }

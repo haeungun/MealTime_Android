@@ -4,7 +4,9 @@ package com.example.haeunkim.mealtime.viewmodel;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +28,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     Context context;
     List<Chat> chatList;
     Auth auth;
-    String uid;
     int chatLayout;
+
+    String uid;
 
     public ChatAdapter(Context context, int chatLayout) {
         this.context = context;
@@ -38,6 +41,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     public void add(Chat chat) {
         chatList.add(chat);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -49,17 +53,18 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Chat chat = chatList.get(position);
+
         holder.name.setText(chat.getName());
+        holder.date.setText(chat.getDate());
         holder.message.setText(chat.getMessage());
 
         uid = auth.getCurrentUid();
         if (chat.getUid().equals(this.uid)) {
-            Drawable drawable = context.getResources().getDrawable(R.drawable.chat_my_name);
-            holder.name.setBackground(drawable);
+            Log.d("CHAT_UID", chat.getUid() + " / CURRENT_UID : " + uid);
+            holder.cardView.setCardBackgroundColor(context.getColor(R.color.transparent_10));
             holder.name.setTextColor(context.getColor(R.color.purple));
         }
     }
-
 
     @Override
     public int getItemCount() {
@@ -69,12 +74,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
+        TextView date;
         TextView message;
+        CardView cardView;
 
         public ViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.chat_name);
+            date = (TextView) view.findViewById(R.id.chat_date);
             message = (TextView) view.findViewById(R.id.chat_message);
+            cardView = (CardView) view.findViewById(R.id.card_chat);
         }
     }
 }
