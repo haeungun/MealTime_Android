@@ -27,21 +27,15 @@ public class LoginViewModel implements ViewModel {
     public void onCreate() {}
 
     @Override
-    public void onPause() {
-
-    }
+    public void onPause() {}
 
     @Override
-    public void onResume() {
-
-    }
+    public void onResume() {}
 
     @Override
-    public void onDestroy() {
+    public void onDestroy() {}
 
-    }
-
-
+    // Login button event
     public void onClickLogin(View v) {
         String email = this.email.get();
         String pwd = this.pwd.get();
@@ -53,7 +47,7 @@ public class LoginViewModel implements ViewModel {
             auth.signInUser(context, email, pwd);
         }
     }
-
+    // Sign up button event
     public void onClickSignUp(View v) {
         Util.goActivity(context, SignUpActivity.class);
     }

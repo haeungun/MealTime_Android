@@ -1,6 +1,8 @@
 package com.example.haeunkim.mealtime.model;
 
+// User model stored in user node of firebase
 public class User {
+
     private String nickname;
     private String major;
 

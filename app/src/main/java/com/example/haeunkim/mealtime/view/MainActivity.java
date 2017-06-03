@@ -24,7 +24,6 @@ import android.widget.TextView;
 
 import com.example.haeunkim.mealtime.R;
 import com.example.haeunkim.mealtime.model.Auth;
-import com.example.haeunkim.mealtime.model.User;
 import com.example.haeunkim.mealtime.model.Util;
 import com.example.haeunkim.mealtime.model.Waiting;
 import com.example.haeunkim.mealtime.viewmodel.RecyclerAdapter;
@@ -71,6 +70,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // FloatingActionButton for pop up window
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener((v) -> popup());
 
@@ -114,14 +114,13 @@ public class MainActivity extends AppCompatActivity
         auth.getReference().child("waiting").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                // Setting each time the size of the Waiting node changes
                 int size = (int) dataSnapshot.getChildrenCount();
                 txtCount.setText(String.valueOf(size));
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
 
         uid = auth.getCurrentUid();
@@ -197,6 +196,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    // Pop up window
     private void popup() {
         popupView = getLayoutInflater().inflate(R.layout.pop_up, null);
         popupWindow = new PopupWindow(popupView,
@@ -208,23 +208,27 @@ public class MainActivity extends AppCompatActivity
         this.getCategory();
     }
 
+    // Pop up window close
     public void onClickClose(View v) {
         if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
         }
     }
 
+    // Pop up window submit button event
     public void onClickSubmit(View v) {
         Waiting waiting = new Waiting(uid, category, name, major);
         auth.getReference().child("waiting").child(uid).setValue(waiting);
         this.onClickClose(v);
     }
 
+    // Pop-up window remove button event
     public void onClickCancel(View v) {
         auth.getReference().child("waiting").child(uid).removeValue();
         this.onClickClose(v);
     }
 
+    // Import firebase 'categories' data and set it to spinner
     public void getCategory() {
         List<String> categoryList = new ArrayList<>();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
@@ -249,7 +253,7 @@ public class MainActivity extends AppCompatActivity
         spinCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("SELECTED : " , parent.getItemAtPosition(position).toString());
+                Log.d("SELECTED_CATEGORY" , parent.getItemAtPosition(position).toString());
                 category = parent.getItemAtPosition(position).toString();
             }
 

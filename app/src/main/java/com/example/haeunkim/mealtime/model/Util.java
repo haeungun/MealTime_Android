@@ -11,6 +11,10 @@ public class Util {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
+    public static void showLongMessage(Context context, String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+    }
+
     public static void goActivity(Context context, Class aClass) {
         Intent intent = new Intent(context, aClass);
         context.startActivity(intent);

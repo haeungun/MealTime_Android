@@ -42,6 +42,7 @@ public class SignUpActivity extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, majorList);
 
+        // Import firebase 'majors' data and set it to spinner
         auth.getReference().child("majors").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -58,11 +59,11 @@ public class SignUpActivity extends Activity {
 
         spinMajor = binding.spin;
         spinMajor.setAdapter(adapter);
-
+        // Major spinner event
         spinMajor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("SELECTED : " , parent.getItemAtPosition(position).toString());
+                Log.d("SELECTED_MAJOR" , parent.getItemAtPosition(position).toString());
                 viewModel.setMajor(parent.getItemAtPosition(position).toString());
                 ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE);
             }

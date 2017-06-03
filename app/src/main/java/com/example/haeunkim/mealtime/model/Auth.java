@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.StringJoiner;
 
 public class Auth {
+
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -102,7 +103,6 @@ public class Auth {
     public User getCurrentUser() {
         this.getCurrentUserName();
         this.getCurrentUserMajor();
-        Log.d("CURRENT :", name + " " + major);
         User user = new User(name, major);
         return user;
     }

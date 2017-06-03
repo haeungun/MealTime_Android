@@ -40,6 +40,7 @@ public class ChatActivity extends AppCompatActivity {
         recyclerChat.setAdapter(chatAdapter);
 
         scroll = binding.scrollChat;
+        // Set scrolling down automatically
         scroll.post(() ->
                 scroll.scrollTo(0, scroll.getBottom()));
 

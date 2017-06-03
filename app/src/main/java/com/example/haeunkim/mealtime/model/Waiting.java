@@ -1,6 +1,6 @@
 package com.example.haeunkim.mealtime.model;
 
-
+// Waiting model stored in the waiting node of firebase
 public class Waiting {
 
     private String uid;

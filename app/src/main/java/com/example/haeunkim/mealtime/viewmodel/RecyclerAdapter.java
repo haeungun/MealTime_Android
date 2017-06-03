@@ -3,7 +3,6 @@ package com.example.haeunkim.mealtime.viewmodel;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.service.wallpaper.WallpaperService;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -19,10 +18,6 @@ import com.example.haeunkim.mealtime.model.Auth;
 import com.example.haeunkim.mealtime.model.Util;
 import com.example.haeunkim.mealtime.model.Waiting;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {

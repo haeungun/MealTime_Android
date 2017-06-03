@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+// Adapter for chat card view
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     Context context;
@@ -60,6 +61,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         uid = auth.getCurrentUid();
         if (chat.getUid().equals(this.uid)) {
+            // If chat is 'my' message,
+            // (The uid of the sender of the message is the same as the uid of the currently logged in user)
+            // set the background color to transparent_10 and the name color to purple.
             Log.d("CHAT_UID", chat.getUid() + " / CURRENT_UID : " + uid);
             holder.cardView.setCardBackgroundColor(context.getColor(R.color.transparent_10));
             holder.name.setTextColor(context.getColor(R.color.purple));

@@ -2,6 +2,7 @@ package com.example.haeunkim.mealtime.model;
 
 
 public class Item {
+
     int imgae;
     String nickName;
     String major;
