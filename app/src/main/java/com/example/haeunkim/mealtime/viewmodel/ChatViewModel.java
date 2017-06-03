@@ -35,19 +35,13 @@ public class ChatViewModel implements ViewModel {
     }
 
     @Override
-    public void onPause() {
-
-    }
+    public void onPause() {}
 
     @Override
-    public void onResume() {
-
-    }
+    public void onResume() {}
 
     @Override
-    public void onDestroy() {
-
-    }
+    public void onDestroy() {}
 
     public void onClickSend(View v) {
         if (content.get() == null || content.get().length() < 1) {
