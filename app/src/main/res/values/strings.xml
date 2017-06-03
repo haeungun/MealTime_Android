@@ -45,6 +45,7 @@
     <string name="success">SUCCESS</string>
     <string name="error">ERROR</string>
 
+    <string name="error_wifi">Only CNU wifi is accessible</string>
     <string name="error_empty">Fill all the blanks</string>
     <string name="error_nickname">Input your nickname with 1-7 characters for number or alphabet</string>
     <string name="error_email">Input your correct E-mail address</string>

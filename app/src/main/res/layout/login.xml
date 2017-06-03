@@ -96,8 +96,8 @@
             android:layout_below="@+id/pwd_layout"
             android:layout_centerHorizontal="true"
             android:text="@string/btn_login"
-            android:textColor="@color/white"
-            android:background="@drawable/btn_login"
+            android:textColor="@color/darkNavy"
+            android:background="@drawable/btn_signup"
             android:onClick="@{viewModel::onClickLogin}"/>
 
         <Button
@@ -108,8 +108,8 @@
             android:layout_below="@+id/btnLogin"
             android:layout_centerHorizontal="true"
             android:text="@string/btn_sign_up"
-            android:textColor="@color/darkNavy"
-            android:background="@drawable/btn_signup"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_login"
             android:onClick="@{viewModel::onClickSignUp}"/>
 
         <TextView

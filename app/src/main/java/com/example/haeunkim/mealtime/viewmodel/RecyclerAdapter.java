@@ -78,25 +78,25 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         Drawable drawable = null;
 
         switch (waiting.getCategory()) {
-            case "제1학생회관":
+            case "Cafeteria1":
                 drawable = ContextCompat.getDrawable(context, R.drawable.cafeteria_1);
                 break;
-            case "제2학생회관":
+            case "Cafeteria2":
                 drawable = ContextCompat.getDrawable(context, R.drawable.cafeteria_2);
                 break;
-            case "제3학생회관":
+            case "Cafeteria3":
                 drawable = ContextCompat.getDrawable(context, R.drawable.cafeteria_3);
                 break;
-            case "양식":
+            case "Western":
                 drawable = ContextCompat.getDrawable(context, R.drawable.western);
                 break;
-            case "일식":
+            case "Japanese":
                 drawable = ContextCompat.getDrawable(context, R.drawable.japanese);
                 break;
-            case "한식":
+            case "Korean":
                 drawable = ContextCompat.getDrawable(context, R.drawable.korean);
                 break;
-            case "중식":
+            case "Chinese":
                 drawable = ContextCompat.getDrawable(context, R.drawable.chinese);
                 break;
             default:

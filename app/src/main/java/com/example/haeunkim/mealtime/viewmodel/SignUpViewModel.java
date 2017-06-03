@@ -3,9 +3,13 @@ package com.example.haeunkim.mealtime.viewmodel;
 
 import android.content.Context;
 import android.databinding.ObservableField;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 
 import com.example.haeunkim.mealtime.R;
@@ -31,8 +35,7 @@ public class SignUpViewModel implements ViewModel {
     }
 
     @Override
-    public void onCreate() {
-    }
+    public void onCreate() {}
 
     @Override
     public void onPause() {
@@ -50,6 +53,17 @@ public class SignUpViewModel implements ViewModel {
     }
 
     public void onClickSignUp(View v) {
+        /*
+         *   This is a community app for Chungnam NAtional University students.
+         *   Therefore, only Chungnam National University students can join the membership.
+         *
+         *
+         *   if (!this.getWifiName(context).equals("CNU wifi")) {
+         *       Util.showMessage(context, context.getString(R.string.error_wifi));
+         *       return;
+         *   }
+        **/
+
         String nickname = this.nickName.get();
         String email = this.email.get();
         String pwd = this.pwd.get();
@@ -57,6 +71,19 @@ public class SignUpViewModel implements ViewModel {
         if (isVerified(nickname, email, pwd)) {
             auth.signUpUser(context, email, pwd, nickname, major);
         }
+
+    }
+
+    public String getWifiName(Context context) {
+        String ssid = "";
+
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        if (WifiInfo.getDetailedStateOf(wifiInfo.getSupplicantState()) == NetworkInfo.DetailedState.CONNECTED) {
+            ssid = wifiInfo.getSSID();
+        }
+
+        return ssid;
     }
 
     private boolean isVerified(String name, String email, String pwd) {
@@ -66,7 +93,7 @@ public class SignUpViewModel implements ViewModel {
             return false;
         }
 
-        Pattern namePattern = Pattern.compile("[a-zA-Z0-9]{1,7}");
+        Pattern namePattern = Pattern.compile("^[a-zA-Z0-9]{1,7}$");
         Matcher nameMatcher = namePattern.matcher(name);
 
         if (!nameMatcher.matches()) {
@@ -82,7 +109,7 @@ public class SignUpViewModel implements ViewModel {
             return false;
         }
 
-        Pattern pwdPattern = Pattern.compile(".{6,}");
+        Pattern pwdPattern = Pattern.compile(".{6,}$");
         Matcher pwdMatcher = pwdPattern.matcher(pwd);
 
         if (!pwdMatcher.matches()) {

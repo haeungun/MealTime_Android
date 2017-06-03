@@ -3,18 +3,14 @@ package com.example.haeunkim.mealtime.viewmodel;
 
 import android.content.Context;
 import android.databinding.ObservableField;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 
 import com.example.haeunkim.mealtime.R;
 import com.example.haeunkim.mealtime.model.Auth;
 import com.example.haeunkim.mealtime.model.Util;
-import com.example.haeunkim.mealtime.view.MainActivity;
 import com.example.haeunkim.mealtime.view.SignUpActivity;
 
 public class LoginViewModel implements ViewModel {
@@ -28,9 +24,7 @@ public class LoginViewModel implements ViewModel {
     }
 
     @Override
-    public void onCreate() {
-        Log.d("WIFI_NAME", getWifiName() + "");
-    }
+    public void onCreate() {}
 
     @Override
     public void onPause() {
@@ -47,15 +41,8 @@ public class LoginViewModel implements ViewModel {
 
     }
 
-    public String getWifiName() {
-        WifiManager wifiManager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
-        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-        String ssid = wifiInfo.getSSID();
-        return ssid;
-    }
 
     public void onClickLogin(View v) {
-        //Log.d("WIFI_NAME", getWifiName() + " is connected.");
         String email = this.email.get();
         String pwd = this.pwd.get();
 

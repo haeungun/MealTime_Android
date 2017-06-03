@@ -3,6 +3,8 @@ package com.example.haeunkim.mealtime.view;
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -80,4 +82,5 @@ public class SignUpActivity extends Activity {
         viewModel = new SignUpViewModel(this);
         binding.setViewModel(viewModel);
     }
+
 }
