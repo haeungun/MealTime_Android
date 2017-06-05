@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.example.haeunkim.mealtime.R;
@@ -25,6 +26,7 @@ public class ChatActivity extends AppCompatActivity {
     private ChatViewModel viewModel;
 
     ChatAdapter chatAdapter;
+    RecyclerView recyclerChat;
     ScrollView scroll;
 
     @Override
@@ -32,17 +34,16 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.initDataBinding();
 
-        RecyclerView recyclerChat = binding.recycleChat;
+        recyclerChat = binding.recycleChat;
         chatAdapter = new ChatAdapter(this, R.layout.chat);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerChat.setHasFixedSize(false);
         recyclerChat.setLayoutManager(layoutManager);
         recyclerChat.setAdapter(chatAdapter);
 
-        scroll = binding.scrollChat;
         // Set scrolling down automatically
-        scroll.post(() ->
-                scroll.scrollTo(0, scroll.getBottom()));
+        scroll = binding.scrollChat;
+        scrollToBottom();
 
         viewModel.onCreate();
 
@@ -52,6 +53,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Chat chat = dataSnapshot.getValue(Chat.class);
                 chatAdapter.add(chat);
+                scrollToBottom();
             }
 
             @Override
@@ -72,6 +74,11 @@ public class ChatActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.chat);
         viewModel = new ChatViewModel(this);
         binding.setViewModel(viewModel);
+    }
+
+    private void scrollToBottom() {
+        this.scroll.post(() ->
+                    scroll.fullScroll(ScrollView.FOCUS_DOWN));
     }
 
 }

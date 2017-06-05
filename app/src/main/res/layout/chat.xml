@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
         <variable
             name="viewModel"
             type="com.example.haeunkim.mealtime.viewmodel.ChatViewModel"/>
     </data>
+
     <RelativeLayout
+        android:id="@+id/chat_layout"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -19,12 +22,14 @@
             android:id="@+id/scroll_chat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="60dp">
+            android:layout_marginBottom="45dp"
+            android:fillViewport="true">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycle_chat"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             </android.support.v7.widget.RecyclerView>
 
@@ -32,10 +37,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal"
-            android:background="@color/transparent_70">
+            android:background="@color/transparent_70"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
             <EditText
                 android:layout_width="match_parent"
@@ -58,6 +65,7 @@
                 android:onClick="@{viewModel::onClickSend}"/>
 
         </LinearLayout>
+
     </RelativeLayout>
 
 </layout>
