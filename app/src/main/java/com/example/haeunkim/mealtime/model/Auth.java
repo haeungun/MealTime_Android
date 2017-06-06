@@ -15,16 +15,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
-import java.util.StringJoiner;
 
 public class Auth {
 
-    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+    private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference reference;
 
     private String name;
     private String major;
+
+    public Auth() {
+        this.firebaseAuth = FirebaseAuth.getInstance();
+        this.database = FirebaseDatabase.getInstance();
+        this.reference = this.database.getReference();
+    }
 
     public void signUpUser(final Context context, final String email, String pwd, final String name, final String major) {
         firebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener((v) -> {

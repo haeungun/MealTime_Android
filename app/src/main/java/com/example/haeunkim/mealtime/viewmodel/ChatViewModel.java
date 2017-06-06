@@ -3,12 +3,15 @@ package com.example.haeunkim.mealtime.viewmodel;
 import android.content.Context;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
+import com.example.haeunkim.mealtime.R;
 import com.example.haeunkim.mealtime.model.Auth;
 import com.example.haeunkim.mealtime.model.Chat;
+import com.example.haeunkim.mealtime.model.ChatService;
 import com.example.haeunkim.mealtime.model.Util;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,18 +23,26 @@ public class ChatViewModel implements ViewModel {
 
     private Auth auth;
     private Context context;
+    private ChatService chatService;
 
     public String name;
+    public RecyclerView chatView;
     public final ObservableField<String> content = new ObservableField<>();
 
-    public ChatViewModel(@NonNull Context context) {
+    public ChatViewModel(@NonNull Context context, RecyclerView view) {
         this.context = context;
         this.auth = new Auth();
+        this.chatView = view;
+
+        this.chatService = new ChatService(context, R.layout.chat, chatView);
     }
 
     @Override
     public void onCreate() {
         this.setUserName();
+
+        // Run chat service
+        chatService.run();
     }
 
     @Override
