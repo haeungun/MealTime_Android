@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ import com.example.haeunkim.mealtime.model.Waiting;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+public class WaitingAdapter extends RecyclerView.Adapter<WaitingAdapter.ViewHolder> {
 
     Context context;
     CopyOnWriteArrayList<Waiting> waitingList;
@@ -28,7 +27,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     Auth auth;
 
-    public RecyclerAdapter(Context context, int waitingLayout) {
+    public WaitingAdapter(Context context, int waitingLayout) {
         this.context = context;
         this.waitingList = new CopyOnWriteArrayList<>();
         this.auth = new Auth();

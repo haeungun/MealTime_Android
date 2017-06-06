@@ -42,6 +42,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     public void add(Chat chat) {
         chatList.add(chat);
+        notifyDataSetChanged();
     }
 
     @Override

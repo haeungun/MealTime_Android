@@ -26,7 +26,7 @@ import com.example.haeunkim.mealtime.R;
 import com.example.haeunkim.mealtime.model.Auth;
 import com.example.haeunkim.mealtime.model.Util;
 import com.example.haeunkim.mealtime.model.Waiting;
-import com.example.haeunkim.mealtime.viewmodel.RecyclerAdapter;
+import com.example.haeunkim.mealtime.viewmodel.WaitingAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
     private Spinner spinCategory;
     private TextView txtCount;
 
-    private RecyclerAdapter recyclerAdapter;
+    private WaitingAdapter waitingAdapter;
     private Auth auth;
 
     private String uid;
@@ -61,11 +61,11 @@ public class MainActivity extends AppCompatActivity
         txtCount = (TextView) findViewById(R.id.txt_count);
 
         RecyclerView recyclerWaiting = (RecyclerView) findViewById(R.id.recycle_waiting);
-        recyclerAdapter = new RecyclerAdapter(this, R.layout.main);
+        waitingAdapter = new WaitingAdapter(this, R.layout.main);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerWaiting.setHasFixedSize(true);
         recyclerWaiting.setLayoutManager(layoutManager);
-        recyclerWaiting.setAdapter(recyclerAdapter);
+        recyclerWaiting.setAdapter(waitingAdapter);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -89,19 +89,19 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Waiting w = dataSnapshot.getValue(Waiting.class);
-                recyclerAdapter.add(w);
+                waitingAdapter.add(w);
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Waiting w = dataSnapshot.getValue(Waiting.class);
-                recyclerAdapter.change(w);
+                waitingAdapter.change(w);
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Waiting w = dataSnapshot.getValue(Waiting.class);
-                recyclerAdapter.remove(w);
+                waitingAdapter.remove(w);
             }
 
             @Override

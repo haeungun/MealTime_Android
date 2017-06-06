@@ -23,9 +23,10 @@ public class ChatService {
     public ChatService(Context context, int layout, RecyclerView view) {
         this.database = FirebaseDatabase.getInstance();
         this.reference = this.database.getReference();
-        this.chatAdapter = new ChatAdapter(context, layout);
 
+        this.chatAdapter = new ChatAdapter(context, layout);
         this.recyclerChat = view;
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerChat.setHasFixedSize(false);
         recyclerChat.setLayoutManager(layoutManager);
@@ -39,7 +40,6 @@ public class ChatService {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Chat chat = dataSnapshot.getValue(Chat.class);
                 chatAdapter.add(chat);
-                chatAdapter.notifyDataSetChanged();
             }
 
             @Override
