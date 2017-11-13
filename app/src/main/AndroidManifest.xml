@@ -31,7 +31,9 @@
         <receiver
             android:name=".viewmodel.DateReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
+
+        <activity android:name=".view.MyPageActivity"></activity>
     </application>
 
 </manifest>

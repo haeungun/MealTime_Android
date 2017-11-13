@@ -180,12 +180,16 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
+            // show message
             Util.showMessage(this, "Home");
         } else if (id == R.id.nav_my_page) {
-
+            // Go to my-page-activity
+            Util.goActivity(this, MyPageActivity.class);
         } else if (id == R.id.nav_chat) {
+            // Go to chat-activity
             Util.goActivity(this, ChatActivity.class);
         } else if (id == R.id.nav_sign_out) {
+            // Sign out
             Auth auth = new Auth();
             auth.signOutUser();
             Util.goActivity(this, LoginActivity.class);
